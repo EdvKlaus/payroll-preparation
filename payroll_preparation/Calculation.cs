@@ -21,13 +21,19 @@ namespace payroll_preparation
                 int hourly_bonus_amount = Convert.ToInt32(textBox3.Text);
 
                 if (number_of_days_worked >= 1 && number_of_hours_worked >= 1 && hourly_bonus_amount >= 1) {
-                    double weekly_salary = (245 + hourly_bonus_amount) * number_of_hours_worked * number_of_days_worked;
-                    double two_weeks_salary = (245 + hourly_bonus_amount) * number_of_hours_worked * (number_of_days_worked * 2);
-                    double mounthly_salary = (245 + hourly_bonus_amount) * number_of_hours_worked * number_of_days_worked * 4;
+                    if (number_of_days_worked < 8) {
+                        double weekly_salary = (245 + hourly_bonus_amount) * number_of_hours_worked * number_of_days_worked;
+                        double two_weeks_salary = (245 + hourly_bonus_amount) * number_of_hours_worked * (number_of_days_worked * 2);
+                        double mounthly_salary = (245 + hourly_bonus_amount) * number_of_hours_worked * number_of_days_worked * 4;
 
-                    textBox6.Text = weekly_salary.ToString();
-                    textBox5.Text = two_weeks_salary.ToString();
-                    textBox4.Text = mounthly_salary.ToString();
+                        textBox6.Text = weekly_salary.ToString();
+                        textBox5.Text = two_weeks_salary.ToString();
+                        textBox4.Text = mounthly_salary.ToString();
+                    }
+                    else
+                    {
+                        MessageBox.Show("Число рабочих дней (в неделю) должно быть в диапозоне от 1 до 7", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                    }
                 }
                 else
                 {
