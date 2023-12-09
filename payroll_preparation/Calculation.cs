@@ -46,29 +46,37 @@ namespace payroll_preparation
             }
         }
 
-        private void Generation_File_Click(object sender, EventArgs e)
+         private void Generation_File_Click(object sender, EventArgs e)
         {
             DateTime dateTime = DateTime.Now;
 
 
             string fileStr = "Текущая дата: " + dateTime.ToString() + "\n" + "Заработная плата за неделю: " + textBox6.Text.ToString() + "\n" + "Заработная плата за 2 неделе: " + textBox5.Text.ToString() + "\n" + "Заработная плата за месяц: " + textBox4.Text.ToString();
 
-            saveFileDialog1.FileName = @"calculation.txt";
-            if (saveFileDialog1.ShowDialog() == DialogResult.OK)
-            {
-                try
-                {
-                    var writer = new StreamWriter(
-                    saveFileDialog1.FileName, false, Encoding.GetEncoding(1251));
 
-                    writer.Write(fileStr);
-                    writer.Close();
-                }
-                catch (Exception ex)
+            if (textBox6.Text == ""|| textBox5.Text == "" || textBox4.Text == "") {
+                MessageBox.Show("Файл не может быть создан без произведения расчётов", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+            }
+            else
+            {
+                saveFileDialog1.FileName = @"calculation.txt";
+                if (saveFileDialog1.ShowDialog() == DialogResult.OK)
                 {
-                    MessageBox.Show(ex.Message,
-                        "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                    try
+                    {
+                        var writer = new StreamWriter(
+                        saveFileDialog1.FileName, false, Encoding.GetEncoding(1251));
+
+                        writer.Write(fileStr);
+                        writer.Close();
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show(ex.Message,
+                            "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                    }
                 }
+
             }
         }
     }
